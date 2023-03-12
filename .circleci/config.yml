@@ -12,9 +12,15 @@ jobs:
       - run:
           name: Analyze on SonarCloud
           command: gradle build sonar
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
       - store_test_results:
-          path: build/test-results
-          
+          path: ~/test-results
+
 workflows:
   main:
     jobs:
