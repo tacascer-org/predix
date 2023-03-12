@@ -5,8 +5,8 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     id("org.sonarqube") version "3.5.0.2730"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
-    kotlin("jvm") version "1.7.22"
-    kotlin("plugin.spring") version "1.7.22"
+    kotlin("jvm") version "1.8.10"
+    kotlin("plugin.spring") version "1.8.10"
 }
 
 group = "com.github.tacascer"
