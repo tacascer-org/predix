@@ -7,9 +7,14 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Tests
+          command: gradle test
+      - run:
           name: Analyze on SonarCloud
           command: gradle build sonar
-
+      - store_test_results:
+          path: build/test-results
+          
 workflows:
   main:
     jobs:
