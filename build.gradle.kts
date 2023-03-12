@@ -48,7 +48,7 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-sonarqube {
+sonar {
     properties {
         property("sonar.projectKey", "tacascer_predix")
         property("sonar.organization", "tim-tran")
