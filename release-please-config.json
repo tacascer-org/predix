@@ -1,0 +1,11 @@
+{
+  "release-type": "java",
+  "packages": {
+    ".": {
+      "package-name": "com.github.tacascer.predix"
+    }
+  },
+  "extra-files": [
+      "build.gradle.kts"
+  ]
+ }
