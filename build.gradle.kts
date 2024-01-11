@@ -42,7 +42,7 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.build {
+tasks.sonar {
     dependsOn(tasks.named("koverXmlReport"))
 }
 
@@ -51,6 +51,6 @@ sonar {
         property("sonar.projectKey", "tacascer_predix")
         property("sonar.organization", "tim-tran")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.jacoco.reportPaths", "${buildDir}/reports/kover/report.xml")
+        property("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/kover/report.xml")
     }
 }
