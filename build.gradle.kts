@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.github.tacascer"
-version = "1.0.0" // x-release-please-version
+version = "1.0.1-SNAPSHOT" // x-release-please-version
 
 java {
     toolchain {
