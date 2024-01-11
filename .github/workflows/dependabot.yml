@@ -4,8 +4,9 @@ name: Dependabot auto-approve
 
 on: pull_request
 
-permissions:
+permissions: 
   pull-requests: write
+  contents: write
 
 jobs:
   dependabot:
