@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.2.1"
     id("io.spring.dependency-management") version "1.1.0"
-    id("org.sonarqube") version "4.0.0.2929"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.spring") version "1.9.20"
@@ -47,19 +46,4 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-sonar {
-    properties {
-        property("sonar.projectKey", "tacascer_predix")
-        property("sonar.organization", "tim-tran")
-        property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/kover/xml/report.xml")
-    }
-}
-
-tasks {
-    named("sonar") {
-        dependsOn("koverReport")
-    }
 }
