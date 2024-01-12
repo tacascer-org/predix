@@ -13,7 +13,7 @@ class PredixController {
     }
 
     @GetMapping("/users")
-    suspend fun getUsers(): Flow<User> {
+    fun getUsers(): Flow<User> {
         return flowOf(User("tacascer"), User("tacascer2"))
     }
 }

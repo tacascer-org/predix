@@ -20,6 +20,7 @@ repositories {
     mavenCentral()
 }
 
+val kotestVersion = "5.8.0"
 
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -30,7 +31,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     testImplementation("io.projectreactor:reactor-test")
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.8.0")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
