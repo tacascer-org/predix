@@ -57,6 +57,6 @@ sonar {
         property("sonar.projectKey", "tacascer_predix")
         property("sonar.organization", "tim-tran")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory}/reports/kover/report.xml")
+        property("sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory.asFile.get()}/reports/kover/report.xml")
     }
 }
