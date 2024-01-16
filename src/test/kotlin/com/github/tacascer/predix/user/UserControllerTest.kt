@@ -1,17 +1,11 @@
-package com.github.tacascer.predix
+package com.github.tacascer.predix.user
 
 import io.kotest.core.spec.style.FunSpec
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 
-internal class PredixControllerTest : FunSpec({
-    val client: WebTestClient = WebTestClient.bindToController(PredixController()).build()
-    test("getPredix should return Hello world") {
-        client.get().uri("/").accept(MediaType.APPLICATION_JSON).exchange()
-            .expectStatus().isOk
-            .expectBody(String::class.java)
-            .isEqualTo("Hello world")
-    }
+internal class UserControllerTest : FunSpec({
+    val client: WebTestClient = WebTestClient.bindToController(UserController()).build()
     test("getUsers should return a list of users") {
         client.get().uri("/users").accept(MediaType.APPLICATION_JSON).exchange()
             .expectStatus().isOk
