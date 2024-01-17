@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController
 class UserController {
     @GetMapping
     fun getUsers(): Flow<User> {
-        return flowOf(User("tacascer"), User("tacascer2"))
+        return flowOf(User.of("tacascer"), User.of("tacascer2"))
     }
 }
