@@ -1,16 +1,29 @@
 package com.github.tacascer.predix.user
 
-import com.github.tacascer.predix.event.UserEvent
 import org.springframework.data.annotation.Id
-import org.springframework.data.annotation.ReadOnlyProperty
+import org.springframework.data.annotation.Transient
 import org.springframework.data.annotation.Version
 import org.springframework.data.relational.core.mapping.Table
 
+
+typealias UserId = Long
+
 @Table("users")
-data class User(@Id val id: Long, val name: String, @ReadOnlyProperty val events: List<UserEvent>, @Version val version: Long) {
+data class User(
+    @Id val id: UserId,
+    val name: String,
+    @Version val version: Long
+) {
+    @Transient
+    val events: List<UserEvent> = listOf()
+
     companion object {
         fun of(name: String): User {
-            return User(0, name, listOf(), 0)
+            return User(0, name, 0)
+        }
+
+        fun of(name: String, events: List<UserEvent>): User {
+            return User(0, name, 0)
         }
     }
 }
