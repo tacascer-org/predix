@@ -29,6 +29,7 @@ configurations {
 
 val kotestVersion = "5.8.0"
 val kotestSpringVersion = "1.1.3"
+val instancioVersion = "4.0.0"
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
@@ -49,6 +50,7 @@ dependencies {
     testImplementation("io.kotest.extensions:kotest-extensions-spring:$kotestSpringVersion")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
     testImplementation("io.projectreactor:reactor-test")
+    testImplementation("org.instancio:instancio-junit:$instancioVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
