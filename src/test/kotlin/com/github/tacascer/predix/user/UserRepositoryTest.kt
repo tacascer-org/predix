@@ -8,28 +8,22 @@ import io.kotest.matchers.shouldNotBe
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
-import org.springframework.transaction.ReactiveTransactionManager
-import org.springframework.transaction.TransactionDefinition
 import org.springframework.transaction.reactive.TransactionalOperator
 import org.springframework.transaction.reactive.executeAndAwait
-import org.springframework.transaction.support.DefaultTransactionDefinition
 
 @ActiveProfiles("test")
 @DataR2dbcTest
 @Import(TestcontainersConfig::class)
 internal class UserRepositoryTest(
     private val userRepository: UserRepository,
-    private val transactionManager: ReactiveTransactionManager
+    private val transactionalOperator: TransactionalOperator
 ) : FunSpec({
-    val definition = DefaultTransactionDefinition().apply {
-        isolationLevel = TransactionDefinition.ISOLATION_READ_COMMITTED
-    }
-    val transactionalOperator = TransactionalOperator.create(transactionManager, definition)
     beforeTest {
         transactionalOperator.executeAndAwait {
             userRepository.deleteAll()
         }
     }
+
     test("User repository can save a user") {
         val user = User.of("tacascer")
         transactionalOperator.executeAndAwait {

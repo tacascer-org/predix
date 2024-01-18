@@ -21,9 +21,5 @@ data class User(
         fun of(name: String): User {
             return User(0, name, 0)
         }
-
-        fun of(name: String, events: List<UserEvent>): User {
-            return User(0, name, 0)
-        }
     }
 }

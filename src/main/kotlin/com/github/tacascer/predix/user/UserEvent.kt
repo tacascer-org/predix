@@ -16,4 +16,9 @@ data class UserEvent(
     @LastModifiedDate override val lastModifiedDate: LocalDateTime,
     @Version override val version: Long
 ) : Event {
+    companion object {
+        fun of(title: String, description: String, createdBy: UserId): UserEvent {
+            return UserEvent(0, title, description, createdBy, LocalDateTime.now(), LocalDateTime.now(), 0)
+        }
+    }
 }
