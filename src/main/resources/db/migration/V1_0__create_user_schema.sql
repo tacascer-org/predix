@@ -1,7 +1,6 @@
-CREATE TABLE users
+CREATE TABLE IF NOT EXISTS users
 (
-    id      BIGINT       NOT NULL AUTO_INCREMENT,
-    name    VARCHAR(255) NOT NULL,
-    version INT          NOT NULL,
-    PRIMARY KEY (id)
+    id      serial primary key,
+    name    varchar(255) not null,
+    version int          not null
 )
