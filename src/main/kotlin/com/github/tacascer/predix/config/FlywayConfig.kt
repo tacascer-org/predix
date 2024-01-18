@@ -6,14 +6,16 @@ import org.springframework.boot.autoconfigure.r2dbc.R2dbcProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 
 @Configuration
 @EnableConfigurationProperties(R2dbcProperties::class, FlywayProperties::class)
+@Profile("default")
 class FlywayConfig {
     @Bean(initMethod = "migrate")
     fun flyway(r2dbcProperties: R2dbcProperties, flywayProperties: FlywayProperties): Flyway {
         return Flyway.configure()
-            .dataSource(r2dbcProperties.url, r2dbcProperties.username, r2dbcProperties.password)
+            .dataSource(flywayProperties.url, r2dbcProperties.username, r2dbcProperties.password)
             .locations(*flywayProperties.locations.toTypedArray())
             .baselineOnMigrate(true)
             .load()
