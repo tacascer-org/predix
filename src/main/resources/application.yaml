@@ -5,7 +5,18 @@ logging:
     org:
       springframework:
         r2dbc: debug
+---
 spring:
+  config:
+    activate:
+      on-profile: docker-compose
   docker:
     compose:
-      file: compose.yaml
+      enabled: true
+      file: compose.yml
+  flyway:
+    url: jdbc:postgresql://localhost:5432/postgres
+  r2dbc:
+    username: postgres
+    password: postgres
+    url: r2dbc:postgresql://localhost:5432/postgres
