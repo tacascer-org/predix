@@ -2,9 +2,8 @@ package com.github.tacascer.predix.user
 
 import com.github.tacascer.predix.config.TestcontainersConfig
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.equals.shouldBeEqual
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.equality.shouldBeEqualToIgnoringFields
+import org.instancio.Instancio
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
@@ -31,13 +30,10 @@ internal class UserEventRepositoryTest(
     }
 
     test("User event repository can save a user event") {
-        val userEvent = UserEvent.of("test", "test", 1)
+        val userEvent = UserEvent.of(Instancio.create(String::class.java), Instancio.create(String::class.java), 1)
         transactionalOperator.executeAndAwait {
             val savedUserEvent = userEventRepository.save(userEvent)
-            savedUserEvent.id shouldNotBe 0
-            savedUserEvent.createdBy shouldBeEqual 1
-            savedUserEvent.description shouldBe "test"
-            savedUserEvent.version shouldNotBe 0
+            savedUserEvent.shouldBeEqualToIgnoringFields(userEvent, UserEvent::id, UserEvent::version)
         }
     }
 

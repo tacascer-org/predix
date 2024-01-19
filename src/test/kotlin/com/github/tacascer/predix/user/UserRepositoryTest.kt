@@ -2,9 +2,10 @@ package com.github.tacascer.predix.user
 
 import com.github.tacascer.predix.config.TestcontainersConfig
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.equality.shouldBeEqualToIgnoringFields
 import io.kotest.matchers.equals.shouldBeEqual
-import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import org.instancio.Instancio
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
@@ -31,18 +32,15 @@ internal class UserRepositoryTest(
     }
 
     test("User repository can save a user") {
-        val user = User.of("tacascer")
+        val user = User.of(Instancio.create(String::class.java))
         transactionalOperator.executeAndAwait {
             val savedUser = userRepository.save(user)
-            savedUser.id shouldNotBe 0
-            savedUser.name shouldBe "tacascer"
-            savedUser.events shouldBe listOf()
-            savedUser.version shouldNotBe 0
+            savedUser.shouldBeEqualToIgnoringFields(user, User::id, User::version)
         }
     }
 
     test("User repository can find a user by id") {
-        val user = User.of("tacascer")
+        val user = User.of(Instancio.create(String::class.java))
         transactionalOperator.executeAndAwait {
             val savedUser = userRepository.save(user)
             val foundUser = userRepository.findById(savedUser.id)
@@ -52,7 +50,7 @@ internal class UserRepositoryTest(
     }
 
     test("User repository can find a user by name") {
-        val user = User.of("tacascer")
+        val user = User.of(Instancio.create(String::class.java))
         transactionalOperator.executeAndAwait {
             val savedUser = userRepository.save(user)
             val foundUser = userRepository.findByName(savedUser.name)
