@@ -1,15 +1,9 @@
 services:
   postgres:
-    image: postgres:16
+    image: 'postgres:16'
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      - 'POSTGRES_DB=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_USER=postgres'
     ports:
-      - "5432:5432"
-    volumes:
-      - db:/data/postgres
-volumes:
-  db:
-    driver:
-      local
+      - '5432:5432'

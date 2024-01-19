@@ -1,14 +1,3 @@
 logging:
   level:
     root: info
----
-spring:
-  config:
-    activate:
-      on-profile: integration-test
-  flyway:
-    url: jdbc:tc:postgresql:16:///postgres
-  r2dbc:
-    username: postgres
-    password: postgres
-    url: r2dbc:tc:postgresql:///postgres?TC_IMAGE_TAG=16

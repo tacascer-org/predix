@@ -3,6 +3,7 @@ package com.github.tacascer.predix.event
 import java.time.LocalDateTime
 
 typealias EventId = Long
+
 interface Event {
     val id: EventId
     val title: String
