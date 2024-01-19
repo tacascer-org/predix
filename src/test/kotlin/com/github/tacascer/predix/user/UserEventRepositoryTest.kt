@@ -17,7 +17,7 @@ internal class UserEventRepositoryTest(
     private val userEventRepository: UserEventRepository,
     private val transactionalOperator: TransactionalOperator
 ) : FunSpec({
-    beforeTest {
+    beforeSpec {
         transactionalOperator.executeAndAwait {
             userEventRepository.deleteAll()
         }

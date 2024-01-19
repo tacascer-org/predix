@@ -19,7 +19,7 @@ internal class UserRepositoryTest(
     private val userRepository: UserRepository,
     private val transactionalOperator: TransactionalOperator
 ) : FunSpec({
-    beforeTest {
+    beforeSpec {
         transactionalOperator.executeAndAwait {
             userRepository.deleteAll()
         }
