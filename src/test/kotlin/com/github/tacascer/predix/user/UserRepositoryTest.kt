@@ -24,6 +24,12 @@ internal class UserRepositoryTest(
         }
     }
 
+    afterTest {
+        transactionalOperator.executeAndAwait {
+            userRepository.deleteAll()
+        }
+    }
+
     test("User repository can save a user") {
         val user = User.of("tacascer")
         transactionalOperator.executeAndAwait {

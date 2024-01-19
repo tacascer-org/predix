@@ -24,6 +24,12 @@ internal class UserEventRepositoryTest(
         }
     }
 
+    afterTest {
+        transactionalOperator.executeAndAwait {
+            userEventRepository.deleteAll()
+        }
+    }
+
     test("User event repository can save a user event") {
         val userEvent = UserEvent.of("test", "test", 1)
         transactionalOperator.executeAndAwait {
