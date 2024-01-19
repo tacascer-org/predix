@@ -1,2 +1,7 @@
 server:
   shutdown: graceful
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: debug
