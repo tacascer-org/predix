@@ -15,11 +15,11 @@ data class User(
     @Version val version: Long
 ) {
     @Transient
-    val events: List<UserEvent> = listOf()
+    val events: MutableCollection<UserEvent> = mutableListOf()
 
     companion object {
         fun of(name: String): User {
-            return User(0, name, 0)
+            return User(0, name, version = 0)
         }
     }
 }
