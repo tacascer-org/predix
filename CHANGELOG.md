@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/tacascer-org/predix/compare/v1.0.0...v1.1.0) (2024-01-20)
+
+
+### Features
+
+* Dummy getUsers ([#50](https://github.com/tacascer-org/predix/issues/50)) ([2d0342b](https://github.com/tacascer-org/predix/commit/2d0342b2b07e7622fe3509fa2e48f54c2f3e29d1))
+* User Repository ([#54](https://github.com/tacascer-org/predix/issues/54)) ([cf8e6a5](https://github.com/tacascer-org/predix/commit/cf8e6a54e1817d740f9139343751feeb27d86c43))
+
+
+### Documentation
+
+* Create LICENSE ([#46](https://github.com/tacascer-org/predix/issues/46)) ([a3a6136](https://github.com/tacascer-org/predix/commit/a3a6136421386675f61f1279f02b75bb12333914))
+
 ## 1.0.0 (2024-01-11)
 
 
