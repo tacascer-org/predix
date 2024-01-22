@@ -4,7 +4,6 @@ import com.github.tacascer.predix.config.TestcontainersConfig
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.equality.shouldBeEqualToIgnoringFields
 import io.kotest.matchers.equals.shouldBeEqual
-import io.kotest.matchers.shouldNotBe
 import org.instancio.Instancio
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
 import org.springframework.context.annotation.Import
@@ -33,30 +32,30 @@ internal class UserRepositoryTest(
 
     test("User repository can save a user") {
         val user = User.of(Instancio.create(String::class.java))
-        transactionalOperator.executeAndAwait {
-            val savedUser = userRepository.save(user)
-            savedUser.shouldBeEqualToIgnoringFields(user, User::id, User::version)
+        val savedUser = transactionalOperator.executeAndAwait {
+            userRepository.save(user)
         }
+        savedUser.shouldBeEqualToIgnoringFields(user, User::id, User::version)
     }
 
     test("User repository can find a user by id") {
         val user = User.of(Instancio.create(String::class.java))
-        transactionalOperator.executeAndAwait {
+        val (savedUser, foundUser) = transactionalOperator.executeAndAwait {
             val savedUser = userRepository.save(user)
             val foundUser = userRepository.findById(savedUser.id)
-            foundUser shouldNotBe null
-            foundUser!! shouldBeEqual savedUser
+            Pair(savedUser, foundUser)
         }
+        foundUser!! shouldBeEqual savedUser
     }
 
     test("User repository can find a user by name") {
         val user = User.of(Instancio.create(String::class.java))
-        transactionalOperator.executeAndAwait {
+        val (savedUser, foundUser) = transactionalOperator.executeAndAwait {
             val savedUser = userRepository.save(user)
             val foundUser = userRepository.findByName(savedUser.name)
-            foundUser shouldNotBe null
-            foundUser!! shouldBeEqual savedUser
+            Pair(savedUser, foundUser)
         }
+        foundUser!! shouldBeEqual savedUser
     }
 })
 
