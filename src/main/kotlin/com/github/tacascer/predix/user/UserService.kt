@@ -10,7 +10,7 @@ class UserService(val userRepository: UserRepository, val userEventRepository: U
     suspend fun findById(id: UserId): User? {
         val user = userRepository.findById(id)
         user?.let {
-            it.events.addAll(userEventRepository.findTop10ByCreatedByOrderByCreatedAtDesc(it.id).toList())
+            it.events.addAll(userEventRepository.findAllByCreatedByOrderByCreatedAtDesc(it.id).toList())
         }
         return user
     }

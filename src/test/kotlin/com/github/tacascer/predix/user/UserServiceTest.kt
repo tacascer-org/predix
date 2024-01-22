@@ -1,37 +1,36 @@
 package com.github.tacascer.predix.user
 
+import com.github.tacascer.predix.config.TestcontainersConfig
+import com.github.tacascer.predix.instancio.field
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.equality.shouldBeEqualToIgnoringFields
 import io.kotest.matchers.shouldBe
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.toList
 import org.instancio.Instancio
+import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
+import org.springframework.context.annotation.Import
 
-class UserServiceTest : FunSpec({
-    val userRepository = mockk<UserRepository>()
-    val userEventRepository = mockk<UserEventRepository>()
-
+@DataR2dbcTest
+@Import(TestcontainersConfig::class)
+class UserServiceTest(
+    private val userRepository: UserRepository,
+    private val userEventRepository: UserEventRepository
+) : FunSpec({
     val userService = UserService(userRepository, userEventRepository)
 
-    test("UserService should be able to find a user by id") {
+    test("UserService can find a user by ID") {
         val user = Instancio.of(userModel()).create()
-        val userEvents = Instancio.ofList(userEventModel()).create()
+        val savedUser = userRepository.save(user)
+        val userEvents = Instancio.ofList(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
+        val savedUserEvents = userEventRepository.saveAll(userEvents).toList()
 
-        coEvery {
-            userRepository.findById(user.id)
-        } returns user
+        val foundUser = userService.findById(savedUser.id)
 
-        coEvery {
-            userEventRepository.findTop10ByCreatedByOrderByCreatedAtDesc(user.id)
-        } returns userEvents.asFlow()
-
-        val foundUser = userService.findById(user.id)
-
-        foundUser!! shouldBe user
-        foundUser.events shouldBe userEvents
-
-        coVerify(exactly = 1) { userRepository.findById(user.id) }
-        coVerify(exactly = 1) { userEventRepository.findTop10ByCreatedByOrderByCreatedAtDesc(user.id) }
+        foundUser!! shouldBe savedUser
+        foundUser.events.shouldBeEqualToIgnoringFields(
+            savedUserEvents,
+            UserEvent::createdAt,
+            UserEvent::lastModifiedDate
+        )
     }
 })

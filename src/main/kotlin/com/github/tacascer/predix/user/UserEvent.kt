@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.annotation.Version
 import org.springframework.data.relational.core.mapping.Table
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 @Table("user_events")
 data class UserEvent(
@@ -15,8 +15,8 @@ data class UserEvent(
     override val title: String,
     override val description: String,
     val createdBy: UserId,
-    @CreatedDate override val createdAt: LocalDateTime = LocalDateTime.now(),
-    @LastModifiedDate override val lastModifiedDate: LocalDateTime = LocalDateTime.now(),
+    @CreatedDate override val createdAt: OffsetDateTime = OffsetDateTime.now(),
+    @LastModifiedDate override val lastModifiedDate: OffsetDateTime = OffsetDateTime.now(),
     @Version override val version: Long
 ) : Event {
     companion object {

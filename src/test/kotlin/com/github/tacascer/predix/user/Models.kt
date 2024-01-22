@@ -9,4 +9,5 @@ fun userModel(): Model<User> =
         .set(field(User::id), 0).toModel()
 
 fun userEventModel(): Model<UserEvent> =
-    Instancio.of(UserEvent::class.java).set(field(UserEvent::id), 0).set(field(UserEvent::version), 0).toModel()
+    Instancio.of(UserEvent::class.java).set(field(UserEvent::id), 0).set(field(UserEvent::version), 0)
+        .toModel()

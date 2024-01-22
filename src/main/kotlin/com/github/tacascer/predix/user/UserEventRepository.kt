@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
 interface UserEventRepository : CoroutineCrudRepository<UserEvent, EventId> {
-    fun findTop10ByCreatedByOrderByCreatedAtDesc(createdBy: UserId): Flow<UserEvent>
+    fun findAllByCreatedByOrderByCreatedAtDesc(createdBy: UserId): Flow<UserEvent>
 }
