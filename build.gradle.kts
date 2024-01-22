@@ -27,9 +27,10 @@ configurations {
     }
 }
 
-val kotestVersion = "5.8.0"
-val kotestSpringVersion = "1.1.3"
 val instancioVersion = "4.0.0"
+val kotestSpringVersion = "1.1.3"
+val kotestVersion = "5.8.0"
+val springMockkVersion = "4.0.2"
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
@@ -51,7 +52,10 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.instancio:instancio-junit:$instancioVersion")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(module = "mockito-core")
+    }
+    testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")

@@ -15,11 +15,12 @@ import org.springframework.transaction.reactive.executeAndAwait
 @Import(TestcontainersConfig::class)
 internal class UserEventRepositoryTest(
     private val userEventRepository: UserEventRepository,
+    private val userRepository: UserRepository,
     private val transactionalOperator: TransactionalOperator
 ) : FunSpec({
     beforeSpec {
         transactionalOperator.executeAndAwait {
-            userEventRepository.deleteAll()
+            userRepository.save(User.of(Instancio.create(String::class.java)))
         }
     }
 
@@ -31,10 +32,10 @@ internal class UserEventRepositoryTest(
 
     test("User event repository can save a user event") {
         val userEvent = UserEvent.of(Instancio.create(String::class.java), Instancio.create(String::class.java), 1)
-        transactionalOperator.executeAndAwait {
-            val savedUserEvent = userEventRepository.save(userEvent)
-            savedUserEvent.shouldBeEqualToIgnoringFields(userEvent, UserEvent::id, UserEvent::version)
+        val savedUserEvent = transactionalOperator.executeAndAwait {
+            userEventRepository.save(userEvent)
         }
+        savedUserEvent.shouldBeEqualToIgnoringFields(userEvent, UserEvent::id, UserEvent::version)
     }
 
 })
