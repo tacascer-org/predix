@@ -2,6 +2,9 @@ package com.github.tacascer.predix.user
 
 import com.github.tacascer.predix.config.TestcontainersConfig
 import com.github.tacascer.predix.instancio.field
+import com.github.tacascer.predix.user.utils.shouldBeSameAs
+import com.github.tacascer.predix.user.utils.userEventModel
+import com.github.tacascer.predix.user.utils.userModel
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.equality.shouldBeEqualToIgnoringFields
@@ -62,6 +65,6 @@ class UserServiceTest(
 
         val savedUserEvent = userService.addEvent(userEvent)
 
-        savedUserEvent.shouldBeEqualToIgnoringFields(userEvent, UserEvent::id, UserEvent::version)
+        savedUserEvent shouldBeSameAs userEvent
     }
 })

@@ -13,13 +13,16 @@ class UserController(val userService: UserService) {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    suspend fun addUser(@RequestBody user: User): User {
-        return userService.add(user)
+    suspend fun addUser(@RequestBody user: UserCreationDTO): User {
+        return userService.add(User.of(user.name))
     }
 
     @PostMapping("/{id}/events")
     @ResponseStatus(HttpStatus.CREATED)
-    suspend fun addUserEvent(@RequestBody userEvent: UserEvent): UserEvent {
-        return userService.addEvent(userEvent)
+    suspend fun addUserEvent(@PathVariable id: UserId, @RequestBody userEvent: UserEventCreationDTO): UserEvent {
+        return userService.addEvent(UserEvent.of(userEvent.title, userEvent.description, id))
     }
 }
+
+data class UserCreationDTO(val name: String)
+data class UserEventCreationDTO(val title: String, val description: String)

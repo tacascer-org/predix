@@ -1,6 +1,7 @@
 package com.github.tacascer.predix.user
 
-import com.github.tacascer.predix.instancio.field
+import com.github.tacascer.predix.user.utils.shouldBeSameAs
+import com.github.tacascer.predix.user.utils.userModel
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.clearMocks
@@ -49,22 +50,24 @@ internal class UserControllerTest : FunSpec({
     }
 
     test("addUserEvent should add a user event") {
-        val user = Instancio.of(userModel()).create()
-        val userEvent = Instancio.of(userEventModel()).set(field(UserEvent::createdBy), user.id).create()
+        val userId = Instancio.create(UserId::class.java)
+        val userEventCreationDTO = Instancio.create(UserEventCreationDTO::class.java)
+        val userEvent = UserEvent.of(userEventCreationDTO.title, userEventCreationDTO.description, userId)
 
         coEvery {
-            userService.addEvent(userEvent)
+            userService.addEvent(any())
         } returns userEvent
 
-        client.post().uri("/${user.id}/events").accept(MediaType.APPLICATION_JSON).bodyValue(userEvent).exchange()
+        client.post().uri("/${userId}/events").accept(MediaType.APPLICATION_JSON).bodyValue(userEventCreationDTO)
+            .exchange()
             .expectStatus().isCreated.expectBody(UserEvent::class.java).value {
-                it shouldBeEqual userEvent
+                it shouldBeSameAs userEvent
             }
-
-        coVerify(exactly = 1) { userService.addEvent(userEvent) }
+        coVerify(exactly = 1) { userService.addEvent(any()) }
     }
 
     afterTest {
         clearMocks(userService)
     }
+
 })
