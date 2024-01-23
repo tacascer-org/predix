@@ -5,3 +5,5 @@ logging:
     org:
       springframework:
         r2dbc: debug
+springdoc:
+  show-actuator: true

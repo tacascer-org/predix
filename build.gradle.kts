@@ -31,6 +31,7 @@ val instancioVersion = "4.0.0"
 val kotestSpringVersion = "1.1.3"
 val kotestVersion = "5.8.0"
 val springMockkVersion = "4.0.2"
+val springDocOpenApiVersion = "2.3.0"
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
@@ -41,6 +42,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:$springDocOpenApiVersion")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
