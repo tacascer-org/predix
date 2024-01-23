@@ -1,6 +1,7 @@
 package com.github.tacascer.predix.user
 
 import com.github.tacascer.predix.user.utils.shouldBeSameAs
+import com.github.tacascer.predix.user.utils.userEventModel
 import com.github.tacascer.predix.user.utils.userModel
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.equals.shouldBeEqual
@@ -8,6 +9,7 @@ import io.mockk.clearMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.asFlow
 import org.instancio.Instancio
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -32,6 +34,22 @@ internal class UserControllerTest : FunSpec({
         }
 
         coVerify(exactly = 1) { userService.findById(user.id) }
+    }
+
+    test("getUserEvents should return a list of user events") {
+        val user = Instancio.of(userModel()).create()
+        val userEvents = Instancio.ofList(userEventModel()).create()
+
+        coEvery {
+            userService.findEventsByUserId(user.id)
+        } returns userEvents.asFlow()
+
+        client.get().uri("/${user.id}/events").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk
+            .expectBodyList(UserEvent::class.java).hasSize(userEvents.size).contains(
+                *userEvents.toTypedArray()
+            )
+
+        coVerify(exactly = 1) { userService.findEventsByUserId(user.id) }
     }
 
     test("addUser should add a user") {

@@ -1,5 +1,6 @@
 package com.github.tacascer.predix.user
 
+import kotlinx.coroutines.flow.Flow
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -9,6 +10,11 @@ class UserController(val userService: UserService) {
     @GetMapping("/{id}")
     suspend fun getUser(@PathVariable id: UserId): User? {
         return userService.findById(id)
+    }
+
+    @GetMapping("/{id}/events")
+    fun getUserEvents(@PathVariable id: UserId): Flow<UserEvent> {
+        return userService.findEventsByUserId(id)
     }
 
     @PostMapping("/")

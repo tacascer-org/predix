@@ -49,6 +49,17 @@ class UserServiceTest(
         foundUser shouldBe null
     }
 
+    test("UserService can find events of user by ID") {
+        val user = Instancio.of(userModel()).create()
+        val savedUser = userRepository.save(user)
+        val userEvents = Instancio.ofList(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
+        val savedUserEvents = userEventRepository.saveAll(userEvents).toList()
+
+        val foundUserEvents = userService.findEventsByUserId(savedUser.id).toList()
+
+        foundUserEvents shouldBeSameAs savedUserEvents
+    }
+
     test("UserService can add a user") {
         val user = Instancio.of(userModel()).create()
 
