@@ -35,6 +35,12 @@ class UserServiceTest(
         )
     }
 
+    test("given User that doesn't exist, when UserService finds by ID, then it returns null") {
+        val foundUser = userService.findById(1)
+
+        foundUser shouldBe null
+    }
+
     test("UserService can add a user") {
         val user = Instancio.of(userModel()).create()
 
