@@ -29,4 +29,8 @@ class UserService(val userRepository: UserRepository, val userEventRepository: U
         return userEventRepository.save(userEvent)
     }
 
+    @Transactional
+    suspend fun update(user: User): User {
+        TODO("Not yet implemented")
+    }
 }
