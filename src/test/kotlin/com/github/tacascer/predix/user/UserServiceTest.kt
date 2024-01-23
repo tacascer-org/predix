@@ -19,6 +19,11 @@ class UserServiceTest(
 ) : FunSpec({
     val userService = UserService(userRepository, userEventRepository)
 
+    afterTest {
+        userEventRepository.deleteAll()
+        userRepository.deleteAll()
+    }
+
     test("UserService can find a user by ID") {
         val user = Instancio.of(userModel()).create()
         val savedUser = userRepository.save(user)
