@@ -8,10 +8,18 @@ import org.springframework.transaction.annotation.Transactional
 class UserService(val userRepository: UserRepository, val userEventRepository: UserEventRepository) {
     @Transactional(readOnly = true)
     suspend fun findById(id: UserId): User? {
-        val user = userRepository.findById(id)
-        user?.let {
-            it.events.addAll(userEventRepository.findAllByCreatedByOrderByCreatedAtDesc(it.id).toList())
+        return userRepository.findById(id)?.apply {
+            events.addAll(userEventRepository.findAllByCreatedByOrderByCreatedAtDesc(id).toList())
         }
-        return user
+    }
+
+    @Transactional
+    suspend fun add(user: User): User {
+        return userRepository.save(user)
+    }
+
+    @Transactional
+    suspend fun addEvent(userEvent: UserEvent): UserEvent {
+        return userEventRepository.save(userEvent)
     }
 }

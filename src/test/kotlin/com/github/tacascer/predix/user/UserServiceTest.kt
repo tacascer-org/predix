@@ -3,6 +3,7 @@ package com.github.tacascer.predix.user
 import com.github.tacascer.predix.config.TestcontainersConfig
 import com.github.tacascer.predix.instancio.field
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.equality.shouldBeEqualToIgnoringFields
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.flow.toList
@@ -32,5 +33,24 @@ class UserServiceTest(
             UserEvent::createdAt,
             UserEvent::lastModifiedDate
         )
+    }
+
+    test("UserService can add a user") {
+        val user = Instancio.of(userModel()).create()
+
+        val savedUser = userService.add(user)
+
+        savedUser.shouldBeEqualToIgnoringFields(user, User::id, User::version)
+        savedUser.events.shouldBeEmpty()
+    }
+
+    test("UserService can add a user event") {
+        val user = Instancio.of(userModel()).create()
+        val savedUser = userRepository.save(user)
+        val userEvent = Instancio.of(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
+
+        val savedUserEvent = userService.addEvent(userEvent)
+
+        savedUserEvent.shouldBeEqualToIgnoringFields(userEvent, UserEvent::id, UserEvent::version)
     }
 })
