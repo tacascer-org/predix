@@ -4,14 +4,17 @@ import com.github.tacascer.predix.user.dto.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/users")
 class UserController(val userService: UserService) {
     @GetMapping("/{id}")
-    suspend fun getUser(@PathVariable id: UserId): UserDTO? {
-        return userService.findById(id)?.toUserDTO()
+    suspend fun getUser(@PathVariable id: UserId): ResponseEntity<UserDTO> {
+        return userService.findById(id)?.let {
+            ResponseEntity.ok(it.toUserDTO())
+        } ?: ResponseEntity.notFound().build()
     }
 
     @GetMapping("/{id}/events")

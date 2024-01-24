@@ -20,6 +20,18 @@ internal class UserControllerTest : FunSpec({
     val client: WebTestClient =
         WebTestClient.bindToController(UserController(userService)).configureClient().baseUrl("/users").build()
 
+    test("when user is not found, then getUser should return not found") {
+        val userId = Instancio.create(UserId::class.java)
+
+        coEvery {
+            userService.findById(userId)
+        } returns null
+
+        client.get().uri("/${userId}").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isNotFound
+
+        coVerify(exactly = 1) { userService.findById(userId) }
+    }
+
     test("when user is found, then getUser should return a user") {
         val user = Instancio.of(userModel()).create()
         val userDTO = user.toUserDTO()
