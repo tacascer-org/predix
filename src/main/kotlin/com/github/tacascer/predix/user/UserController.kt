@@ -36,8 +36,8 @@ class UserController(val userService: UserService) {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    suspend fun updateUser(@PathVariable id: UserId, @RequestBody userDTO: UserDTO): UserDTO {
-        return userService.update(userDTO.toUser()).toUserDTO()
+    suspend fun updateUser(@PathVariable id: UserId, @RequestBody userCreationDTO: UserCreationDTO): UserCreationDTO {
+        return userService.update(userCreationDTO.toUser(id)).toUserCreationDTO()
     }
 
     @DeleteMapping("/{id}")
@@ -46,3 +46,4 @@ class UserController(val userService: UserService) {
         userService.delete(id)
     }
 }
+

@@ -7,6 +7,7 @@ import com.github.tacascer.predix.user.UserId
 
 data class UserCreationDTO(val name: String) {
     fun toUser(): User = User.of(name)
+    fun toUser(id: UserId): User = User.of(id, name)
 }
 
 data class UserDTO(val id: UserId, val name: String) {
@@ -21,6 +22,11 @@ fun User.toUserDTO(): UserDTO {
     return UserDTO(id, name)
 }
 
+fun User.toUserCreationDTO(): UserCreationDTO {
+    return UserCreationDTO(name)
+}
+
 fun UserEvent.toUserEventDTO(): UserEventDTO {
     return UserEventDTO(id, title, description, createdBy)
 }
+
