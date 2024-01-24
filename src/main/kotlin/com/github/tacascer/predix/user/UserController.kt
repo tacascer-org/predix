@@ -1,8 +1,8 @@
 package com.github.tacascer.predix.user
 
-import com.github.tacascer.predix.user.dto.UserCreationDTO
-import com.github.tacascer.predix.user.dto.UserEventCreationDTO
+import com.github.tacascer.predix.user.dto.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -10,30 +10,30 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/users")
 class UserController(val userService: UserService) {
     @GetMapping("/{id}")
-    suspend fun getUser(@PathVariable id: UserId): User? {
-        return userService.findById(id)
+    suspend fun getUser(@PathVariable id: UserId): UserDTO? {
+        return userService.findById(id)?.toUserDTO()
     }
 
     @GetMapping("/{id}/events")
-    fun getUserEvents(@PathVariable id: UserId): Flow<UserEvent> {
-        return userService.findEventsByUserId(id)
+    fun getUserEvents(@PathVariable id: UserId): Flow<UserEventDTO> {
+        return userService.findEventsByUserId(id).map { it.toUserEventDTO() }
     }
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    suspend fun addUser(@RequestBody user: UserCreationDTO): User {
-        return userService.add(user.toUser())
+    suspend fun addUser(@RequestBody user: UserCreationDTO): UserDTO {
+        return userService.add(user.toUser()).toUserDTO()
     }
 
     @PostMapping("/{id}/events")
     @ResponseStatus(HttpStatus.CREATED)
-    suspend fun addUserEvent(@PathVariable id: UserId, @RequestBody userEvent: UserEventCreationDTO): UserEvent {
-        return userService.addEvent(UserEvent.of(userEvent.title, userEvent.description, id))
+    suspend fun addUserEvent(@PathVariable id: UserId, @RequestBody userEvent: UserEventCreationDTO): UserEventDTO {
+        return userService.addEvent(UserEvent.of(userEvent.title, userEvent.description, id)).toUserEventDTO()
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    suspend fun updateUser(@RequestBody user: User): User {
-        return userService.update(user)
+    suspend fun updateUser(@RequestBody user: UserDTO): UserDTO {
+        return userService.update(user.toUser()).toUserDTO()
     }
 }

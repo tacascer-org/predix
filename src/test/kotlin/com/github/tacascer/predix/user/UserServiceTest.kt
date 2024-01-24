@@ -2,7 +2,7 @@ package com.github.tacascer.predix.user
 
 import com.github.tacascer.predix.config.TestcontainersConfig
 import com.github.tacascer.predix.instancio.field
-import com.github.tacascer.predix.user.utils.shouldBeEqual
+import com.github.tacascer.predix.user.utils.shouldBeSameAs
 import com.github.tacascer.predix.user.utils.userEventModel
 import com.github.tacascer.predix.user.utils.userModel
 import io.kotest.core.spec.style.FunSpec
@@ -57,7 +57,7 @@ class UserServiceTest(
 
         val foundUserEvents = userService.findEventsByUserId(savedUser.id).toList()
 
-        foundUserEvents shouldBeEqual savedUserEvents
+        foundUserEvents shouldBeSameAs savedUserEvents
     }
 
     test("UserService can add a user") {
@@ -76,6 +76,6 @@ class UserServiceTest(
 
         val savedUserEvent = userService.addEvent(userEvent)
 
-        savedUserEvent shouldBeEqual userEvent
+        savedUserEvent shouldBeSameAs userEvent
     }
 })
