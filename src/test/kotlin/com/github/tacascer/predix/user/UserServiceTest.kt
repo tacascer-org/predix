@@ -86,4 +86,25 @@ class UserServiceTest(
 
         updatedUser.shouldBeEqualToIgnoringFields(modifiedUser, User::version)
     }
+
+    test("given a user without events, delete deletes the user") {
+        val user = Instancio.of(userModel()).create()
+        val savedUser = userRepository.save(user)
+
+        userService.delete(savedUser.id)
+
+        userRepository.findById(savedUser.id) shouldBe null
+    }
+
+    test("given a user with events, delete deletes the user and its events") {
+        val user = Instancio.of(userModel()).create()
+        val savedUser = userRepository.save(user)
+        val userEvents = Instancio.ofList(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
+        userEventRepository.saveAll(userEvents).toList()
+
+        userService.delete(savedUser.id)
+
+        userRepository.findById(savedUser.id) shouldBe null
+        userEventRepository.findAllByCreatedByOrderByCreatedAtDesc(savedUser.id).toList().shouldBeEmpty()
+    }
 })

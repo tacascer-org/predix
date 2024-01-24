@@ -119,4 +119,15 @@ internal class UserControllerTest : FunSpec({
         clearMocks(userService)
     }
 
+    test("deleteUser should delete a user") {
+        val userId = Instancio.create(UserId::class.java)
+
+        coEvery {
+            userService.delete(userId)
+        } returns Unit
+
+        client.delete().uri("/${userId}").accept(MediaType.APPLICATION_JSON).exchange()
+            .expectStatus().isOk
+        coVerify(exactly = 1) { userService.delete(userId) }
+    }
 })
