@@ -2,7 +2,7 @@ package com.github.tacascer.predix.user
 
 import com.github.tacascer.predix.config.TestcontainersConfig
 import com.github.tacascer.predix.instancio.field
-import com.github.tacascer.predix.user.utils.shouldBeSameAs
+import com.github.tacascer.predix.user.utils.shouldBeEqual
 import com.github.tacascer.predix.user.utils.userEventModel
 import com.github.tacascer.predix.user.utils.userModel
 import io.kotest.core.spec.style.FunSpec
@@ -27,7 +27,13 @@ class UserServiceTest(
         userRepository.deleteAll()
     }
 
-    test("findById returns a user without events") {
+    test("given a user that doesn't exist, findById returns null") {
+        val foundUser = userService.findById(1)
+
+        foundUser shouldBe null
+    }
+
+    test("given an existing user, findById returns a user without events") {
         val user = Instancio.of(userModel()).create()
         val savedUser = userRepository.save(user)
         val userEvents = Instancio.ofList(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
@@ -39,24 +45,7 @@ class UserServiceTest(
         foundUser.events.shouldBeEmpty()
     }
 
-    test("given User that doesn't exist, when UserService finds by ID, then it returns null") {
-        val foundUser = userService.findById(1)
-
-        foundUser shouldBe null
-    }
-
-    test("UserService can find events of user by ID") {
-        val user = Instancio.of(userModel()).create()
-        val savedUser = userRepository.save(user)
-        val userEvents = Instancio.ofList(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
-        val savedUserEvents = userEventRepository.saveAll(userEvents).toList()
-
-        val foundUserEvents = userService.findEventsByUserId(savedUser.id).toList()
-
-        foundUserEvents shouldBeSameAs savedUserEvents
-    }
-
-    test("UserService can add a user") {
+    test("given a user with no events, findEventsByUserId returns an empty list") {
         val user = Instancio.of(userModel()).create()
 
         val savedUser = userService.add(user)
@@ -65,13 +54,36 @@ class UserServiceTest(
         savedUser.events.shouldBeEmpty()
     }
 
-    test("UserService can add a user event") {
+    test("given a user with events, findEventsByUserId returns a list of user events") {
+        val user = Instancio.of(userModel()).create()
+        val savedUser = userRepository.save(user)
+        val userEvents = Instancio.ofList(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
+        val savedUserEvents = userEventRepository.saveAll(userEvents).toList()
+
+        val foundUserEvents = userService.findEventsByUserId(savedUser.id).toList()
+
+        foundUserEvents shouldBeEqual savedUserEvents
+    }
+
+    test("given a user, addEvent returns the added user event") {
         val user = Instancio.of(userModel()).create()
         val savedUser = userRepository.save(user)
         val userEvent = Instancio.of(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
 
         val savedUserEvent = userService.addEvent(userEvent)
 
-        savedUserEvent shouldBeSameAs userEvent
+        savedUserEvent shouldBeEqual userEvent
+    }
+
+    test("given a user with non-zero version number, update returns the user with updated version") {
+        val user = Instancio.of(userModel()).create()
+        val savedUser = userRepository.save(user)
+        val modifiedUser =
+            Instancio.of(userModel()).set(field(User::version), savedUser.version).set(field(User::id), savedUser.id)
+                .create()
+
+        val updatedUser = userService.update(modifiedUser)
+
+        updatedUser.shouldBeEqualToIgnoringFields(modifiedUser, User::version)
     }
 })
