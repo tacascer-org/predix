@@ -101,16 +101,16 @@ internal class UserControllerTest : FunSpec({
     }
 
     test("updateUser should update a user") {
-        val userDTO = Instancio.create(UserDTO::class.java)
-        val user = userDTO.toUser()
+        val user = Instancio.create(User::class.java)
+        val userCreationDTO = user.toUserCreationDTO()
 
         coEvery {
             userService.update(any())
         } returns user
 
-        client.put().uri("/${user.id}").accept(MediaType.APPLICATION_JSON).bodyValue(userDTO).exchange()
-            .expectStatus().isOk.expectBody(UserDTO::class.java).value {
-                it shouldBeEqual userDTO
+        client.put().uri("/${user.id}").accept(MediaType.APPLICATION_JSON).bodyValue(userCreationDTO).exchange()
+            .expectStatus().isOk.expectBody(UserCreationDTO::class.java).value {
+                it shouldBeEqual userCreationDTO
             }
         coVerify(exactly = 1) { userService.update(any()) }
     }
