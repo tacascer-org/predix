@@ -9,8 +9,8 @@ import io.kotest.matchers.equality.shouldBeEqualToIgnoringFields
 import io.kotest.matchers.reflection.havingProperty
 import io.kotest.matchers.shouldBe
 
-infix fun UserEvent.shouldBeSameAs(other: UserEvent) = this shouldBe userEventMatcher(other)
-infix fun Collection<UserEvent>.shouldBeSameAs(other: Collection<UserEvent>) =
+infix fun UserEvent.shouldBeEqual(other: UserEvent) = this shouldBe userEventMatcher(other)
+infix fun Collection<UserEvent>.shouldBeEqual(other: Collection<UserEvent>) =
     this.shouldBeEqualToIgnoringFields(
         other,
         true,
