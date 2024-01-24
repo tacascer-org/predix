@@ -33,7 +33,7 @@ class UserController(val userService: UserService) {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    suspend fun updateUser(@RequestBody user: UserDTO): UserDTO {
-        return userService.update(user.toUser()).toUserDTO()
+    suspend fun updateUser(@RequestBody userDTO: UserDTO): UserDTO {
+        return userService.update(userDTO.toUser()).toUserDTO()
     }
 }

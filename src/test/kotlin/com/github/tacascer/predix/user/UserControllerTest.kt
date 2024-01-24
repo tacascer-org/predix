@@ -89,7 +89,6 @@ internal class UserControllerTest : FunSpec({
     }
 
     test("updateUser should update a user") {
-        val userId = Instancio.create(UserId::class.java)
         val userDTO = Instancio.create(UserDTO::class.java)
         val user = userDTO.toUser()
 
@@ -97,7 +96,7 @@ internal class UserControllerTest : FunSpec({
             userService.update(any())
         } returns user
 
-        client.put().uri("/${userId}").accept(MediaType.APPLICATION_JSON).bodyValue(userDTO).exchange()
+        client.put().uri("/${user.id}").accept(MediaType.APPLICATION_JSON).bodyValue(userDTO).exchange()
             .expectStatus().isOk.expectBody(UserDTO::class.java).value {
                 it shouldBeEqual userDTO
             }

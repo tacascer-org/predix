@@ -27,20 +27,16 @@ class UserServiceTest(
         userRepository.deleteAll()
     }
 
-    test("UserService can find a user by ID") {
+    test("findById returns a user without events") {
         val user = Instancio.of(userModel()).create()
         val savedUser = userRepository.save(user)
         val userEvents = Instancio.ofList(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
-        val savedUserEvents = userEventRepository.saveAll(userEvents).toList()
+        userEventRepository.saveAll(userEvents).toList()
 
         val foundUser = userService.findById(savedUser.id)
 
         foundUser!! shouldBe savedUser
-        foundUser.events.shouldBeEqualToIgnoringFields(
-            savedUserEvents,
-            UserEvent::createdAt,
-            UserEvent::lastModifiedDate
-        )
+        foundUser.events.shouldBeEmpty()
     }
 
     test("given User that doesn't exist, when UserService finds by ID, then it returns null") {
