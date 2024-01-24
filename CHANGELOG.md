@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.2.0](https://github.com/tacascer-org/predix/compare/v1.1.0...v1.2.0) (2024-01-24)
+
+
+### Features
+
+* Add a UserService to construct the User aggregate ([#62](https://github.com/tacascer-org/predix/issues/62)) ([c1a56ac](https://github.com/tacascer-org/predix/commit/c1a56aca8f7fd4d9b817b73bc10623bef2573d58))
+* add OpenAPI ([#66](https://github.com/tacascer-org/predix/issues/66)) ([ef660e2](https://github.com/tacascer-org/predix/commit/ef660e269bfe9d1a0d66c2b19e64156521ed9544))
+* Add OpenAPI docs ([ef660e2](https://github.com/tacascer-org/predix/commit/ef660e269bfe9d1a0d66c2b19e64156521ed9544))
+* add user ([#65](https://github.com/tacascer-org/predix/issues/65)) ([007e5cb](https://github.com/tacascer-org/predix/commit/007e5cb678202407591ee3b2b622d954ab87119c))
+* can update user ([#67](https://github.com/tacascer-org/predix/issues/67)) ([d84b60a](https://github.com/tacascer-org/predix/commit/d84b60a6963c2fb336cc6f5afde64dac5485ea87))
+* **user:** add PathVariable to PUT ([bc5cded](https://github.com/tacascer-org/predix/commit/bc5cded9cfe4f3e57c1a7d774603d37aba29d659))
+* **user:** Delete user ([#68](https://github.com/tacascer-org/predix/issues/68)) ([3337666](https://github.com/tacascer-org/predix/commit/3337666c0bd47befea518e1e08bf0ae26bce87ed))
+
+
+### Bug Fixes
+
+* Add PathVariable to PUT ([#69](https://github.com/tacascer-org/predix/issues/69)) ([bc5cded](https://github.com/tacascer-org/predix/commit/bc5cded9cfe4f3e57c1a7d774603d37aba29d659))
+* **user:** Remove id from request body of PUT ([#70](https://github.com/tacascer-org/predix/issues/70)) ([5e781ea](https://github.com/tacascer-org/predix/commit/5e781ea1936a8226c015924ae6223784768a18ea))
+
 ## [1.1.0](https://github.com/tacascer-org/predix/compare/v1.0.0...v1.1.0) (2024-01-20)
 
 
