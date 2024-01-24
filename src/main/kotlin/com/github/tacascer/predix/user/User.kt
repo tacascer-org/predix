@@ -21,5 +21,9 @@ data class User(
         fun of(name: String): User {
             return User(0, name, version = 0)
         }
+
+        fun of(id: UserId, name: String): User {
+            return User(id, name, version = 0)
+        }
     }
 }

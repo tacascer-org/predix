@@ -1,6 +1,8 @@
-package com.github.tacascer.predix.user
+package com.github.tacascer.predix.user.utils
 
 import com.github.tacascer.predix.instancio.field
+import com.github.tacascer.predix.user.User
+import com.github.tacascer.predix.user.UserEvent
 import org.instancio.Instancio
 import org.instancio.Model
 

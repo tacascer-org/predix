@@ -1,6 +1,6 @@
 package com.github.tacascer.predix.user
 
-import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -8,9 +8,12 @@ import org.springframework.transaction.annotation.Transactional
 class UserService(val userRepository: UserRepository, val userEventRepository: UserEventRepository) {
     @Transactional(readOnly = true)
     suspend fun findById(id: UserId): User? {
-        return userRepository.findById(id)?.apply {
-            events.addAll(userEventRepository.findAllByCreatedByOrderByCreatedAtDesc(id).toList())
-        }
+        return userRepository.findById(id)
+    }
+
+    @Transactional(readOnly = true)
+    fun findEventsByUserId(id: UserId): Flow<UserEvent> {
+        return userEventRepository.findAllByCreatedByOrderByCreatedAtDesc(id)
     }
 
     @Transactional
@@ -21,5 +24,10 @@ class UserService(val userRepository: UserRepository, val userEventRepository: U
     @Transactional
     suspend fun addEvent(userEvent: UserEvent): UserEvent {
         return userEventRepository.save(userEvent)
+    }
+
+    @Transactional
+    suspend fun update(user: User): User {
+        return userRepository.save(user)
     }
 }
