@@ -10,9 +10,7 @@ data class UserCreationDTO(val name: String) {
     fun toUser(id: UserId): User = User.of(id, name)
 }
 
-data class UserDTO(val id: UserId, val name: String) {
-    fun toUser(): User = User.of(id, name)
-}
+data class UserDTO(val id: UserId, val name: String)
 
 data class UserEventCreationDTO(val title: String, val description: String)
 

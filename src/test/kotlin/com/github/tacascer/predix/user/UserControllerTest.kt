@@ -1,5 +1,7 @@
 package com.github.tacascer.predix.user
 
+import com.github.tacascer.predix.event.EventId
+import com.github.tacascer.predix.instancio.field
 import com.github.tacascer.predix.user.dto.*
 import com.github.tacascer.predix.user.utils.userEventModel
 import com.github.tacascer.predix.user.utils.userModel
@@ -129,5 +131,36 @@ internal class UserControllerTest : FunSpec({
         client.delete().uri("/${userId}").accept(MediaType.APPLICATION_JSON).exchange()
             .expectStatus().isOk
         coVerify(exactly = 1) { userService.delete(userId) }
+    }
+
+    test("when user event is not found, then getUserEvent should return not found") {
+        val userId = Instancio.create(UserId::class.java)
+        val eventId = Instancio.create(EventId::class.java)
+
+        coEvery {
+            userService.findEventById(eventId)
+        } returns null
+
+        client.get().uri("/${userId}/events/${eventId}").accept(MediaType.APPLICATION_JSON).exchange()
+            .expectStatus().isNotFound
+
+        coVerify(exactly = 1) { userService.findEventById(eventId) }
+    }
+
+    test("when user event is found, then getUserEvent should return the event") {
+        val userId = Instancio.create(UserId::class.java)
+        val userEvent = Instancio.of(userEventModel()).set(field(UserEvent::createdBy), userId).create()
+        val userEventDTO = userEvent.toUserEventDTO()
+
+        coEvery {
+            userService.findEventById(userEvent.id)
+        } returns userEvent
+
+        client.get().uri("/${userId}/events/${userEvent.id}").accept(MediaType.APPLICATION_JSON).exchange()
+            .expectStatus().isOk.expectBody(UserEventDTO::class.java).value {
+                it shouldBeEqual userEventDTO
+            }
+
+        coVerify(exactly = 1) { userService.findEventById(userEvent.id) }
     }
 })
