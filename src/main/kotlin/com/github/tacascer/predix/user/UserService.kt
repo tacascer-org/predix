@@ -1,5 +1,6 @@
 package com.github.tacascer.predix.user
 
+import com.github.tacascer.predix.event.EventId
 import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -32,5 +33,9 @@ class UserService(val userRepository: UserRepository, val userEventRepository: U
     suspend fun delete(id: UserId) {
         userEventRepository.deleteAllByCreatedBy(id)
         return userRepository.deleteById(id)
+    }
+
+    suspend fun findEventById(eventId: EventId): UserEvent? {
+        return userEventRepository.findById(eventId)
     }
 }

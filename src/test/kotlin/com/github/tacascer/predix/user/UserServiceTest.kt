@@ -107,4 +107,15 @@ class UserServiceTest(
         userRepository.findById(savedUser.id) shouldBe null
         userEventRepository.findAllByCreatedByOrderByCreatedAtDesc(savedUser.id).toList().shouldBeEmpty()
     }
+
+    test("given a user with an event, findEventByUserIdAndEventId returns the event") {
+        val user = Instancio.of(userModel()).create()
+        val savedUser = userRepository.save(user)
+        val userEvent = Instancio.of(userEventModel()).set(field(UserEvent::createdBy), savedUser.id).create()
+        val savedUserEvent = userEventRepository.save(userEvent)
+
+        val foundUserEvent = userService.findEventById(savedUserEvent.id)
+
+        foundUserEvent!! shouldBeEqual savedUserEvent
+    }
 })

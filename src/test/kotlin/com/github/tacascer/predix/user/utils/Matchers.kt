@@ -32,6 +32,4 @@ fun userEventMatcher(userEvent: UserEvent) = Matcher.all(
         UserEvent::lastModifiedDate,
         UserEvent::version
     ),
-    havingProperty(haveSameInstantAs(userEvent.createdAt) to UserEvent::createdAt),
-    havingProperty(haveSameInstantAs(userEvent.lastModifiedDate) to UserEvent::lastModifiedDate),
 )

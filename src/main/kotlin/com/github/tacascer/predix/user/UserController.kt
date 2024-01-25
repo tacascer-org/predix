@@ -1,5 +1,6 @@
 package com.github.tacascer.predix.user
 
+import com.github.tacascer.predix.event.EventId
 import com.github.tacascer.predix.user.dto.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -17,21 +18,10 @@ class UserController(val userService: UserService) {
         } ?: ResponseEntity.notFound().build()
     }
 
-    @GetMapping("/{id}/events")
-    fun getUserEvents(@PathVariable id: UserId): Flow<UserEventDTO> {
-        return userService.findEventsByUserId(id).map { it.toUserEventDTO() }
-    }
-
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     suspend fun addUser(@RequestBody user: UserCreationDTO): UserDTO {
         return userService.add(user.toUser()).toUserDTO()
-    }
-
-    @PostMapping("/{id}/events")
-    @ResponseStatus(HttpStatus.CREATED)
-    suspend fun addUserEvent(@PathVariable id: UserId, @RequestBody userEvent: UserEventCreationDTO): UserEventDTO {
-        return userService.addEvent(UserEvent.of(userEvent.title, userEvent.description, id)).toUserEventDTO()
     }
 
     @PutMapping("/{id}")
@@ -44,6 +34,24 @@ class UserController(val userService: UserService) {
     @ResponseStatus(HttpStatus.OK)
     suspend fun deleteUser(@PathVariable id: UserId) {
         userService.delete(id)
+    }
+
+    @GetMapping("/{id}/events")
+    fun getUserEvents(@PathVariable id: UserId): Flow<UserEventDTO> {
+        return userService.findEventsByUserId(id).map { it.toUserEventDTO() }
+    }
+
+    @PostMapping("/{id}/events")
+    @ResponseStatus(HttpStatus.CREATED)
+    suspend fun addUserEvent(@PathVariable id: UserId, @RequestBody userEvent: UserEventCreationDTO): UserEventDTO {
+        return userService.addEvent(UserEvent.of(userEvent.title, userEvent.description, id)).toUserEventDTO()
+    }
+
+    @GetMapping("/{id}/events/{eventId}")
+    suspend fun getUserEvent(@PathVariable id: UserId, @PathVariable eventId: EventId): ResponseEntity<UserEventDTO> {
+        return userService.findEventById(eventId)?.let {
+            ResponseEntity.ok(it.toUserEventDTO())
+        } ?: ResponseEntity.notFound().build()
     }
 }
 
