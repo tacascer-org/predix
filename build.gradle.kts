@@ -27,7 +27,7 @@ configurations {
     }
 }
 
-val instancioVersion = "4.0.0"
+val instancioVersion = "4.1.0"
 val kotestSpringVersion = "1.1.3"
 val kotestVersion = "5.8.0"
 val springMockkVersion = "4.0.2"
