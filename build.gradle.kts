@@ -3,7 +3,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
     id("org.jetbrains.kotlinx.kover") version "0.7.6"
     id("org.sonarqube") version "4.4.1.3373"
-    id("org.springframework.boot") version "3.2.2"
+    id("org.springframework.boot") version "3.2.3"
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.spring") version "1.9.22"
 }
