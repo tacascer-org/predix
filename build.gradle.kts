@@ -5,7 +5,7 @@ plugins {
     id("org.sonarqube") version "4.4.1.3373"
     id("org.springframework.boot") version "3.2.3"
     kotlin("jvm") version "1.9.23"
-    kotlin("plugin.spring") version "1.9.22"
+    kotlin("plugin.spring") version "1.9.23"
 }
 
 group = "com.github.tacascer"
