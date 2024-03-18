@@ -31,7 +31,7 @@ val instancioVersion = "4.4.0"
 val kotestSpringVersion = "1.1.3"
 val kotestVersion = "5.8.1"
 val springMockkVersion = "4.0.2"
-val springDocOpenApiVersion = "2.3.0"
+val springDocOpenApiVersion = "2.4.0"
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
