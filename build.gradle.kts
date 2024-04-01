@@ -2,7 +2,7 @@ plugins {
     id("com.adarshr.test-logger") version "4.0.0"
     id("io.spring.dependency-management") version "1.1.4"
     id("org.jetbrains.kotlinx.kover") version "0.7.6"
-    id("org.sonarqube") version "4.4.1.3373"
+    id("org.sonarqube") version "5.0.0.4638"
     id("org.springframework.boot") version "3.2.4"
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
