@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.7.6"
     id("org.sonarqube") version "5.0.0.4638"
     id("org.springframework.boot") version "3.2.5"
-    kotlin("jvm") version "1.9.23"
+    kotlin("jvm") version "1.9.24"
     kotlin("plugin.spring") version "1.9.24"
 }
 
