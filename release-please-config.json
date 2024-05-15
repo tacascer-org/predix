@@ -1,9 +1,8 @@
 {
-  "release-type": "java",
   "packages": {
     ".": {
       "changelog-path": "CHANGELOG.md",
-      "release-type": "java",
+      "release-type": "go",
       "bump-minor-pre-major": false,
       "bump-patch-for-minor-pre-major": false,
       "draft": false,
