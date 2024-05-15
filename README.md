@@ -2,4 +2,4 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=tacascer-org_predix&metric=coverage)](https://sonarcloud.io/summary/new_code?id=tacascer-org_predix)
 
 # predix
-Train your System 2 to predict long term events.
+Train your System 2 to predict long-term events.
