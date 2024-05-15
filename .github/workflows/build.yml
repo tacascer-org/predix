@@ -16,7 +16,7 @@ on:
 
 jobs:
   gradle:
-    uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0.2.3
+    uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0.3.1
     with:
       java-version: 17
     secrets: inherit
@@ -29,15 +29,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: java-kotlin
-          build-mode: manual
-      - name: CodeQL Analyze
-        uses: github/codeql-action/analyze@v3
-        with:
-          languages: java-kotlin
 
     permissions:
       security-events: write
