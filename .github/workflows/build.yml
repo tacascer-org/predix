@@ -16,23 +16,9 @@ on:
 
 jobs:
   gradle:
-    uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0.2.3
+    uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0.3.2
     with:
       java-version: 17
     secrets: inherit
-  codeql:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: 17
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: java-kotlin
-          build-mode: autobuild
     permissions:
       security-events: write
