@@ -21,7 +21,7 @@ jobs:
   gradle:
     uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0.2.3
     with:
-      java-version: $JAVA_VERSION
+      java-version: ${{ env.JAVA_VERSION }}
     secrets: inherit
   codeql:
     runs-on: ubuntu-latest
