@@ -7,9 +7,6 @@
 
 name: Build And Analyze
 
-env:
-  JAVA_VERSION: 17
-
 on:
   push:
     branches:
@@ -37,3 +34,5 @@ jobs:
         with:
           languages: java-kotlin
           build-mode: autobuild
+    permissions:
+      security-events: write
