@@ -1,7 +1,9 @@
 package io.github.tacascer.user.db
 
 import io.github.tacascer.user.User
+import org.springframework.stereotype.Component
 
+@Component
 class DataJpaUserRepository(
     private val userEntityRepository: UserEntityRepository,
     private val userEntityMapper: UserEntityMapper
