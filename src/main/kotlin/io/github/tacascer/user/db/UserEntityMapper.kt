@@ -8,7 +8,7 @@ interface UserEntityMapper {
 
     fun toEntity(user: User): UserEntity
 
-    fun toDto(userEntity: UserEntity): User
+    fun toDomain(userEntity: UserEntity): User
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     fun partialUpdate(user: User, @MappingTarget userEntity: UserEntity): UserEntity

@@ -11,6 +11,6 @@ class DataJpaUserRepository(
     override fun save(user: User): User {
         val userEntity = userEntityMapper.toEntity(user)
         val savedUserEntity = userEntityRepository.save(userEntity)
-        return userEntityMapper.toDto(savedUserEntity)
+        return userEntityMapper.toDomain(savedUserEntity)
     }
 }
