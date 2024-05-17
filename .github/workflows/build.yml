@@ -18,7 +18,7 @@ jobs:
   gradle:
     uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0.3.2
     with:
-      java-version: 17
+      java-version: 21
     secrets: inherit
     permissions:
       security-events: write
