@@ -2,6 +2,7 @@ package io.github.tacascer.user.db
 
 import io.github.tacascer.user.DomainUserService
 import io.github.tacascer.user.User
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -33,25 +34,45 @@ class DomainUserServiceTest : FunSpec({
         savedUser.id shouldNotBe null
     }
 
-    test("when prediction is added to user, then user is returned with the prediction added") {
-        // Given
-        val user = existingUserArb.next()
-        val prediction = predictionArb.next()
+    context("add prediction") {
+        test("given a non-existing user, when prediction is added to user, then exception is thrown") {
+            // Given
+            val user = existingUserArb.next()
+            val prediction = predictionArb.next()
 
-        val expected = User(user.name, user.predictions + prediction, user.id)
+            every {
+                userRepository.findById(user.id!!)
+            } returns null
 
-        every {
-            userRepository.findById(user.id!!)
-        } returns user
+            // When
+            val exception = shouldThrow<IllegalArgumentException> {
+                userService.addPrediction(user.id!!, prediction)
+            }
 
-        every {
-            userRepository.save(user)
-        } returns expected
+            // Then
+            exception.message shouldBe "User with id ${user.id} does not exist."
+        }
 
-        // When
-        val result = userService.addPrediction(user, prediction)
+        test("given an existing user, when prediction is added to user, then user is returned with the prediction added") {
+            // Given
+            val user = existingUserArb.next()
+            val prediction = predictionArb.next()
 
-        // Then
-        result shouldBe expected
+            val expected = User(user.name, user.predictions + prediction, user.id)
+
+            every {
+                userRepository.findById(user.id!!)
+            } returns user
+
+            every {
+                userRepository.save(any())
+            } returns expected
+
+            // When
+            val result = userService.addPrediction(user.id!!, prediction)
+
+            // Then
+            result shouldBe expected
+        }
     }
 })
