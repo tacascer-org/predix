@@ -18,6 +18,10 @@ data class User(
     val predictions: Set<Prediction> = emptySet(),
     val id: Long? = null,
 ) {
+    init {
+        validateState()
+    }
+
     fun addPrediction(prediction: Prediction): User {
         validateState()
         return copy(predictions = predictions + prediction)
