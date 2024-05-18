@@ -2,7 +2,7 @@ package io.github.tacascer.user.db
 
 import io.github.tacascer.user.User
 
-interface UserRepository {
+fun interface UserRepository {
     /**
      * Save a user.
      *

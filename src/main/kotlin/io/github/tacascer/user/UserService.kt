@@ -1,5 +1,5 @@
 package io.github.tacascer.user
 
-interface UserService {
+fun interface UserService {
     fun save(user: User): User
 }
