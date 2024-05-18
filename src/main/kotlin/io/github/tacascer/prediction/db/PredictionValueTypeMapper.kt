@@ -1,5 +1,6 @@
-package io.github.tacascer.prediction
+package io.github.tacascer.prediction.db
 
+import io.github.tacascer.prediction.Prediction
 import org.mapstruct.*
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)

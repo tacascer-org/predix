@@ -1,6 +1,6 @@
 package io.github.tacascer.user.db
 
-import io.github.tacascer.prediction.PredictionValueType
+import io.github.tacascer.prediction.db.PredictionValueType
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 

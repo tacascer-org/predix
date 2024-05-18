@@ -1,4 +1,4 @@
-package io.github.tacascer.prediction
+package io.github.tacascer.prediction.db
 
 import jakarta.persistence.Embeddable
 import org.hibernate.proxy.HibernateProxy
