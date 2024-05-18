@@ -1,6 +1,5 @@
 package io.github.tacascer.user.db
 
-import io.github.tacascer.prediction.Prediction
 import io.github.tacascer.prediction.db.PredictionValueTypeMapper
 import io.github.tacascer.user.User
 import org.springframework.stereotype.Component
