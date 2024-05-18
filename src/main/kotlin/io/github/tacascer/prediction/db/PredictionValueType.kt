@@ -6,7 +6,7 @@ import java.util.*
 
 @Embeddable
 class PredictionValueType(
-    val outcome: Boolean,
+    var outcome: Boolean,
 ) {
     final override fun equals(other: Any?): Boolean {
         if (this === other) return true

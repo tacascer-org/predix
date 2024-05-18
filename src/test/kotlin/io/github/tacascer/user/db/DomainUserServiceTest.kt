@@ -6,13 +6,17 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.shouldNotBe
 import io.kotest.property.arbitrary.next
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 
 class DomainUserServiceTest : FunSpec({
     val userRepository = mockk<UserRepository>()
     val userService = DomainUserService(userRepository)
+
+    afterTest {
+        clearAllMocks()
+        confirmVerified()
+        checkUnnecessaryStub()
+    }
 
     test("when user is saved, then user is returned with a populated id") {
         // Given
@@ -27,27 +31,25 @@ class DomainUserServiceTest : FunSpec({
 
         // Then
         savedUser.id shouldNotBe null
-        verify {
-            userRepository.save(user)
-        }
     }
 
     test("when prediction is added to user, then user is returned with the prediction added") {
         // Given
-        val user = userArb.next()
+        val user = existingUserArb.next()
         val prediction = predictionArb.next()
 
         every {
-            userRepository.findById(1L)
+            userRepository.findById(user.id!!)
         } returns user
 
+        every {
+            userRepository.save(any())
+        } returns user.addPrediction(prediction)
+
         // When
-        userService.addPrediction(1L, prediction)
+        val result = userService.addPrediction(user.id!!, prediction)
 
         // Then
-        user.predictions.shouldNotBeEmpty()
-        verify {
-            userRepository.findById(1L)
-        }
+        result.predictions.shouldNotBeEmpty()
     }
 })

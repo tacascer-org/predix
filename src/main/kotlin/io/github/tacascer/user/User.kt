@@ -8,10 +8,10 @@ import io.github.tacascer.prediction.Prediction
  * @property name the user's name
  * @property predictions the user's predictions
  */
-class User(
+data class User(
     val name: String,
-    val predictions: MutableSet<Prediction>,
+    val predictions: Set<Prediction>,
     val id: Long? = null,
 ) {
-    fun addPrediction(prediction: Prediction) = predictions.add(prediction)
+    fun addPrediction(prediction: Prediction) = this.copy(predictions = predictions + prediction)
 }

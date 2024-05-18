@@ -12,8 +12,10 @@ class DomainUserService(
         return userRepository.save(user)
     }
 
-    override fun addPrediction(userId: Long, prediction: Prediction) {
+    override fun addPrediction(userId: Long, prediction: Prediction): User {
         val user = userRepository.findById(userId) ?: throw IllegalArgumentException("User not found")
-        user.addPrediction(prediction)
+        return user.addPrediction(prediction).also {
+            userRepository.save(it)
+        }
     }
 }

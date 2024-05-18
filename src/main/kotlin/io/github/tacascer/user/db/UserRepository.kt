@@ -6,8 +6,8 @@ interface UserRepository {
     /**
      * Save a user.
      *
-     * @param user The user to save. This user should not have an id.
-     * @return The user with the id populated.
+     * @param user The user to save. If the user is new, the id must be null
+     * @return The saved user.
      */
     fun save(user: User): User
 

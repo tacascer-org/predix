@@ -10,5 +10,5 @@ interface UserService {
      * @return The created user with the id populated.
      */
     fun create(user: User): User
-    fun addPrediction(userId: Long, prediction: Prediction)
+    fun addPrediction(userId: Long, prediction: Prediction): User
 }

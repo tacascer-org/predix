@@ -9,11 +9,11 @@ import jakarta.validation.constraints.NotBlank
 class UserEntity(
     @NotBlank
     @Column(name = "name")
-    val name: String,
+    var name: String,
 
     @ElementCollection
     @CollectionTable(name = "users_predictions", joinColumns = [JoinColumn(name = "user_id")])
-    val predictions: MutableSet<PredictionValueType> = mutableSetOf(),
+    var predictions: MutableSet<PredictionValueType> = mutableSetOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
