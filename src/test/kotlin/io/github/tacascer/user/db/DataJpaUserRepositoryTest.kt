@@ -1,6 +1,7 @@
 package io.github.tacascer.user.db
 
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.property.arbitrary.next
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
@@ -24,5 +25,28 @@ class DataJpaUserRepositoryTest(
 
         // Then
         savedUser.id shouldNotBe null
+    }
+
+    test("given a user id, when user is searched, if user exists, then user is returned") {
+        // Given
+        val user = userArb.next()
+        val savedUser = userRepository.save(user)
+
+        // When
+        val foundUser = userRepository.findById(savedUser.id!!)
+
+        // Then
+        foundUser shouldNotBe null
+    }
+
+    test("given a user id, when user is searched, if user does not exist, then null is returned") {
+        // Given
+        val id = 1L
+
+        // When
+        val foundUser = userRepository.findById(id)
+
+        // Then
+        foundUser shouldBe null
     }
 })

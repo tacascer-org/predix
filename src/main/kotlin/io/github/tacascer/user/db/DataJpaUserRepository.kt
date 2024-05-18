@@ -15,6 +15,8 @@ class DataJpaUserRepository(
     }
 
     override fun findById(id: Long): User? {
-        TODO("Not yet implemented")
+        return userEntityRepository.findById(id)
+            .map { userEntityMapper.toDomain(it) }
+            .orElse(null)
     }
 }
