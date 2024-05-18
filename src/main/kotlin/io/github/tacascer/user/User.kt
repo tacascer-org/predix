@@ -13,7 +13,5 @@ class User(
     val predictions: MutableSet<Prediction>,
     val id: Long? = null,
 ) {
-    fun addPrediction(prediction: Prediction) {
-        predictions.add(prediction)
-    }
+    fun addPrediction(prediction: Prediction) = predictions.add(prediction)
 }
