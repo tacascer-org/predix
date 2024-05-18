@@ -4,6 +4,7 @@ import io.github.tacascer.user.DomainUserService
 import io.github.tacascer.user.User
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldNotBeEmpty
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.property.arbitrary.next
 import io.mockk.*
@@ -23,7 +24,7 @@ class DomainUserServiceTest : FunSpec({
         val user = userArb.next()
 
         every {
-            userRepository.save(user)
+            userRepository.create(user)
         } returns User(user.name, user.predictions, 1L)
 
         // When
@@ -38,18 +39,16 @@ class DomainUserServiceTest : FunSpec({
         val user = existingUserArb.next()
         val prediction = predictionArb.next()
 
-        every {
-            userRepository.findById(user.id!!)
-        } returns user
+        val expected = User(user.name, user.predictions + prediction, user.id)
 
         every {
-            userRepository.save(any())
-        } returns user.addPrediction(prediction)
+            userRepository.addPrediction(user.id!!, prediction)
+        } returns expected
 
         // When
         val result = userService.addPrediction(user.id!!, prediction)
 
         // Then
-        result.predictions.shouldNotBeEmpty()
+        result shouldBe expected
     }
 })

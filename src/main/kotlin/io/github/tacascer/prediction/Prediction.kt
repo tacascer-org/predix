@@ -1,7 +1,5 @@
 package io.github.tacascer.prediction
 
-class Prediction(
+data class Prediction(
     val outcome: Boolean,
-) {
-
-}
+)
