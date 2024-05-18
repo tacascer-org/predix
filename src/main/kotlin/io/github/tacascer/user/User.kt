@@ -10,7 +10,7 @@ import io.github.tacascer.prediction.Prediction
  */
 class User(
     val name: String,
-    val predictions: MutableList<Prediction>,
+    val predictions: MutableSet<Prediction>,
     val id: Long? = null,
 ) {
     fun addPrediction(prediction: Prediction) {

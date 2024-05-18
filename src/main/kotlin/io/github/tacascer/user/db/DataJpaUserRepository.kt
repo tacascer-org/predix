@@ -13,4 +13,8 @@ class DataJpaUserRepository(
         val savedUserEntity = userEntityRepository.save(userEntity)
         return userEntityMapper.toDomain(savedUserEntity)
     }
+
+    override fun findById(id: Long): User? {
+        TODO("Not yet implemented")
+    }
 }
