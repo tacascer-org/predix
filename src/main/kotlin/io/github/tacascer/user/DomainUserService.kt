@@ -9,10 +9,12 @@ class DomainUserService(
     private val userRepository: UserRepository,
 ) : UserService {
     override fun create(user: User): User {
-        return userRepository.create(user)
+        return userRepository.save(user)
     }
 
-    override fun addPrediction(userId: Long, prediction: Prediction): User {
-        return userRepository.addPrediction(userId, prediction)
+    override fun addPrediction(user: User, prediction: Prediction): User {
+        requireNotNull(userRepository.findById(user.id!!)) { "User with id ${user.id} does not exist" }
+        user.addPrediction(prediction)
+        return userRepository.save(user)
     }
 }

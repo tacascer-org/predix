@@ -22,7 +22,7 @@ class DataJpaUserRepositoryTest(
         val user = userArb.next()
 
         // When
-        val savedUser = userRepository.create(user)
+        val savedUser = userRepository.save(user)
 
         // Then
         savedUser.id shouldNotBe null
@@ -31,7 +31,7 @@ class DataJpaUserRepositoryTest(
     test("given a user id, when user is searched, if user exists, then user is returned") {
         // Given
         val user = userArb.next()
-        val savedUser = userRepository.create(user)
+        val savedUser = userRepository.save(user)
 
         // When
         val foundUser = userRepository.findById(savedUser.id!!)
@@ -54,11 +54,11 @@ class DataJpaUserRepositoryTest(
     test("given an existing user, when user has a prediction added, then user is returned with the prediction") {
         // Given
         val user = userArb.next()
-        val savedUser = userRepository.create(user)
+        val savedUser = userRepository.save(user)
         val prediction = predictionArb.next()
 
         // When
-        val updatedUser = userRepository.addPrediction(savedUser.id!!, prediction)
+        val updatedUser = userRepository.save(savedUser.addPrediction(prediction))
 
         // Then
         updatedUser.predictions.shouldNotBeEmpty()
