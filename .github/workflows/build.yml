@@ -16,7 +16,7 @@ on:
 
 jobs:
   gradle:
-    uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0.3.2
+    uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0
     with:
       java-version: 21
     secrets: inherit
