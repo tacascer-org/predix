@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "io.github.tacascer"
-version = "1.3.0" // x-release-please-version
+version = "1.4.0" // x-release-please-version
 
 allOpen {
     annotation("jakarta.persistence.Entity")
