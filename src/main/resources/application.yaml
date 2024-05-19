@@ -2,16 +2,13 @@ server:
   shutdown: graceful
 springdoc:
   show-actuator: true
-debug: true
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        format_sql: true
+
   threads:
     virtual:
       enabled: true
