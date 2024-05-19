@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0](https://github.com/tacascer-org/predix/compare/v1.2.0...v1.3.0) (2024-05-19)
+
+
+### Features
+
+* JPA rewrite ([#105](https://github.com/tacascer-org/predix/issues/105)) ([a29aca2](https://github.com/tacascer-org/predix/commit/a29aca21c7857c4dd7affdab3d1081d311ed69a6))
+* **userEvent:** Search by eventID ([#73](https://github.com/tacascer-org/predix/issues/73)) ([20722ee](https://github.com/tacascer-org/predix/commit/20722eeafbc280e2c405809ed90cd02fbbbc667b))
+* **userEvents:** search by eventId ([20722ee](https://github.com/tacascer-org/predix/commit/20722eeafbc280e2c405809ed90cd02fbbbc667b))
+
 ## [1.2.0](https://github.com/tacascer-org/predix/compare/v1.1.0...v1.2.0) (2024-01-24)
 
 
