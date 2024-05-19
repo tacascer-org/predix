@@ -76,6 +76,16 @@ kotlin {
     }
 }
 
+kover {
+    reports {
+       filters {
+           excludes {
+               classes("io.github.tacascer.prediction.db.PredictionValueType") // Has JPA Buddy generated code
+           }
+       }
+    }
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
