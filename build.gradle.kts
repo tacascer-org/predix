@@ -3,7 +3,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 plugins {
     id("com.adarshr.test-logger") version "4.0.0"
     id("io.spring.dependency-management") version "1.1.5"
-    id("org.jetbrains.kotlinx.kover") version "0.7.6"
+    id("org.jetbrains.kotlinx.kover") version "0.8.0"
     id("org.sonarqube") version "5.0.0.4638"
     id("org.springframework.boot") version "3.2.5"
     kotlin("jvm") version "1.9.24"
@@ -73,6 +73,16 @@ dependencies {
 kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xjsr305=strict")
+    }
+}
+
+kover {
+    reports {
+       filters {
+           excludes {
+               classes("io.github.tacascer.prediction.db.PredictionValueType") // Has JPA Buddy generated code
+           }
+       }
     }
 }
 
