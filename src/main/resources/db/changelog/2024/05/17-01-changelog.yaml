@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1715921200732-1
+      author: p (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: users_seq
+            startValue: 1
+  - changeSet:
+      id: 1715921200732-2
+      author: p (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_users
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: version
+                  type: INT
+            tableName: users
+  - changeSet:
+      id: 1715921200732-3
+      author: p (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: outcome
+                  type: BOOLEAN
+            tableName: users_predictions
+  - changeSet:
+      id: 1715921200732-4
+      author: p (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: users_predictions
+            constraintName: fk_users_predictions_on_user_entity
+            referencedColumnNames: id
+            referencedTableName: users
+
