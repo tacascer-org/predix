@@ -1,7 +1,10 @@
 package io.github.tacascer.user.db
 
+import io.github.tacascer.existingUserArb
+import io.github.tacascer.predictionArb
 import io.github.tacascer.user.DomainUserService
 import io.github.tacascer.user.User
+import io.github.tacascer.userArb
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
@@ -19,19 +22,53 @@ class DomainUserServiceTest : FunSpec({
         checkUnnecessaryStub()
     }
 
-    test("when user is saved, then user is returned with a populated id") {
-        // Given
-        val user = userArb.next()
+    context("create user") {
+        test("when user is saved, then user is returned with a populated id") {
+            // Given
+            val user = userArb.next()
 
-        every {
-            userRepository.save(user)
-        } returns User(user.name, user.predictions, 1L)
+            every {
+                userRepository.save(user)
+            } returns User(user.name, user.predictions, 1L)
 
-        // When
-        val savedUser = userService.create(user)
+            // When
+            val savedUser = userService.create(user)
 
-        // Then
-        savedUser.id shouldNotBe null
+            // Then
+            savedUser.id shouldNotBe null
+        }
+    }
+
+    context("find user by id") {
+        test("given a user id, when user is searched, if user exists, then user is returned") {
+            // Given
+            val user = existingUserArb.next()
+
+            every {
+                userRepository.findById(user.id!!)
+            } returns user
+
+            // When
+            val foundUser = userService.findById(user.id!!)
+
+            // Then
+            foundUser shouldBe user
+        }
+
+        test("given a user id, when user is searched, if user does not exist, then null is returned") {
+            // Given
+            val id = 1L
+
+            every {
+                userRepository.findById(id)
+            } returns null
+
+            // When
+            val foundUser = userService.findById(id)
+
+            // Then
+            foundUser shouldBe null
+        }
     }
 
     context("add prediction") {

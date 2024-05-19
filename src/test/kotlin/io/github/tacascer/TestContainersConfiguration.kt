@@ -1,4 +1,4 @@
-package io.github.tacascer.user.db
+package io.github.tacascer
 
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
@@ -8,7 +8,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 
 @TestConfiguration(proxyBeanMethods = false)
 @Testcontainers
-class TestConfiguration {
+class TestContainersConfiguration {
     @Bean
     @ServiceConnection
     fun postgresContainer() = PostgreSQLContainer("postgres:16")

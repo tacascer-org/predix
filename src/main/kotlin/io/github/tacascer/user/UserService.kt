@@ -11,4 +11,5 @@ interface UserService {
      */
     fun create(user: User): User
     fun addPrediction(userId: Long, prediction: Prediction): User
+    fun findById(id: Long): User?
 }

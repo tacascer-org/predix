@@ -1,5 +1,8 @@
 package io.github.tacascer.user.db
 
+import io.github.tacascer.TestContainersConfiguration
+import io.github.tacascer.predictionArb
+import io.github.tacascer.userArb
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.shouldBe
@@ -13,7 +16,7 @@ import org.springframework.context.annotation.Import
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = ["io.github.tacascer.user.db", "io.github.tacascer.prediction.db"])
 @DataJpaTest
-@Import(TestConfiguration::class)
+@Import(TestContainersConfiguration::class)
 class DataJpaUserRepositoryTest(
     val userRepository: DataJpaUserRepository,
 ) : FunSpec({

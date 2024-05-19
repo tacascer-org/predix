@@ -5,7 +5,7 @@ import io.github.tacascer.prediction.Prediction
 /**
  * User domain object.
  * Preconditions:
- * - If the user is new, the [id] must be null and the [predictions] must be empty.
+ * - If the user is new, the [id] must be null.
  * - If the user has [predictions], the [id] must not be null.
  *
  * @property id the user's id. If null, the user is new.
