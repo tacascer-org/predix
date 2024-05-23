@@ -78,11 +78,11 @@ kotlin {
 
 kover {
     reports {
-       filters {
-           excludes {
-               classes("io.github.tacascer.prediction.db.PredictionValueType") // Has JPA Buddy generated code
-           }
-       }
+        filters {
+            excludes {
+                classes("io.github.tacascer.prediction.db.PredictionValueType") // Has JPA Buddy generated code
+            }
+        }
     }
 }
 
@@ -108,10 +108,14 @@ sonar {
 
 tasks.named<BootBuildImage>("bootBuildImage") {
     imageName = "tacascer/predix"
-    docker {
-        publishRegistry {
-            username = "tacascer"
-            password = System.getenv("DOCKER_HUB_TOKEN")
+    if (System.getenv("DOCKER_HUB_TOKEN") != null) {
+        publish = true
+        docker {
+            publishRegistry {
+                username = "tacascer"
+                password = System.getenv("DOCKER_HUB_TOKEN")
+            }
         }
+
     }
 }
