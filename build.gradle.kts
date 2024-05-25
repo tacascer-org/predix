@@ -106,7 +106,7 @@ sonar {
 }
 
 tasks.named<BootBuildImage>("bootBuildImage") {
-    tags = listOf("tacascer/predix:$version", "tacascer/predix:latest")
+    tags = listOf("tacascer/$name:$version", "tacascer/$name:latest")
     if (System.getenv("DOCKER_HUB_TOKEN") != null) {
         publish = true
         docker {
