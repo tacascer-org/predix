@@ -2,7 +2,7 @@ package io.github.tacascer.prediction.db
 
 import jakarta.persistence.Embeddable
 import org.hibernate.proxy.HibernateProxy
-import java.util.*
+import java.util.Objects
 
 @Embeddable
 class PredictionValueType(
