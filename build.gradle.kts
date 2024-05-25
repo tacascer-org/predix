@@ -106,7 +106,9 @@ sonar {
 }
 
 tasks.named<BootBuildImage>("bootBuildImage") {
-    tags = listOf("tacascer/${project.name}:${project.version}", "tacascer/${project.name}:latest")
+    val image = "tacascer/${project.name}"
+    imageName = image
+    tags = listOf("$image:${project.version}", "$image:latest")
     if (System.getenv("DOCKER_HUB_TOKEN") != null) {
         publish = true
         docker {
