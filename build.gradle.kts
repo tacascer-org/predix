@@ -2,7 +2,6 @@ import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
     id("com.adarshr.test-logger") version "4.0.0"
-    id("com.diffplug.spotless") version "6.25.0"
     id("io.spring.dependency-management") version "1.1.5"
     id("org.jetbrains.kotlinx.kover") version "0.8.0"
     id("org.sonarqube") version "5.0.0.4638"
