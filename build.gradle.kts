@@ -49,7 +49,6 @@ val springDocOpenApiVersion = "2.5.0"
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
-    implementation("com.amazonaws:aws-lambda-java-runtime-interface-client")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.liquibase:liquibase-core")
