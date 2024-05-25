@@ -10,7 +10,11 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.property.arbitrary.next
-import io.mockk.*
+import io.mockk.checkUnnecessaryStub
+import io.mockk.clearAllMocks
+import io.mockk.confirmVerified
+import io.mockk.every
+import io.mockk.mockk
 
 class DomainUserServiceTest : FunSpec({
     val userRepository = mockk<UserRepository>()
@@ -82,9 +86,10 @@ class DomainUserServiceTest : FunSpec({
             } returns null
 
             // When
-            val exception = shouldThrow<IllegalArgumentException> {
-                userService.addPrediction(user.id!!, prediction)
-            }
+            val exception =
+                shouldThrow<IllegalArgumentException> {
+                    userService.addPrediction(user.id!!, prediction)
+                }
 
             // Then
             exception.message shouldBe "User with id ${user.id} does not exist."
