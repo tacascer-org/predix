@@ -25,3 +25,4 @@ jobs:
     permissions:
       security-events: write
       contents: write
+      statuses: write
