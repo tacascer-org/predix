@@ -12,36 +12,36 @@ import org.springframework.context.annotation.Import
 @Import(TestContainersConfiguration::class)
 @SpringBootTest
 class PredixApplicationKtTest(
-    val userService: UserService
+    val userService: UserService,
 ) : FunSpec({
-    test("can create new user") {
-        // When
-        val user = userService.create(userArb.next())
+        test("can create new user") {
+            // When
+            val user = userService.create(userArb.next())
 
-        // Then
-        user.id!! shouldBeGreaterThan 0
-    }
+            // Then
+            user.id!! shouldBeGreaterThan 0
+        }
 
-    test("can find user by id") {
-        // Given
-        val user = userService.create(userArb.next())
+        test("can find user by id") {
+            // Given
+            val user = userService.create(userArb.next())
 
-        // When
-        val foundUser = userService.findById(user.id!!)
+            // When
+            val foundUser = userService.findById(user.id!!)
 
-        // Then
-        foundUser shouldBe user
-    }
+            // Then
+            foundUser shouldBe user
+        }
 
-    test("can add prediction to user") {
-        // Given
-        val user = userService.create(userArb.next())
-        val prediction = predictionArb.next()
+        test("can add prediction to user") {
+            // Given
+            val user = userService.create(userArb.next())
+            val prediction = predictionArb.next()
 
-        // When
-        val updatedUser = userService.addPrediction(user.id!!, prediction)
+            // When
+            val updatedUser = userService.addPrediction(user.id!!, prediction)
 
-        // Then
-        updatedUser.predictions shouldContain prediction
-    }
-})
+            // Then
+            updatedUser.predictions shouldContain prediction
+        }
+    })

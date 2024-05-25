@@ -2,7 +2,7 @@ package io.github.tacascer.prediction.db
 
 import jakarta.persistence.Embeddable
 import org.hibernate.proxy.HibernateProxy
-import java.util.*
+import java.util.Objects
 
 @Embeddable
 class PredictionValueType(
@@ -21,5 +21,5 @@ class PredictionValueType(
         return outcome == other.outcome
     }
 
-    final override fun hashCode(): Int = Objects.hash(outcome);
+    final override fun hashCode(): Int = Objects.hash(outcome)
 }

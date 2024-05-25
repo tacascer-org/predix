@@ -14,6 +14,8 @@ on:
   pull_request:
     types: [ opened, synchronize, reopened ]
 
+permissions: { }
+
 jobs:
   gradle:
     uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0
@@ -23,3 +25,4 @@ jobs:
     permissions:
       security-events: write
       contents: write
+      statuses: write

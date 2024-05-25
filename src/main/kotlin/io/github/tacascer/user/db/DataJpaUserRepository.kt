@@ -1,13 +1,12 @@
 package io.github.tacascer.user.db
 
-import io.github.tacascer.prediction.db.PredictionValueTypeMapper
 import io.github.tacascer.user.User
 import org.springframework.stereotype.Component
 
 @Component
 class DataJpaUserRepository(
     private val userEntityRepository: UserEntityRepository,
-    private val userEntityMapper: UserEntityMapper, private val predictionValueTypeMapper: PredictionValueTypeMapper
+    private val userEntityMapper: UserEntityMapper,
 ) : UserRepository {
     override fun save(user: User): User {
         val userEntity = userEntityMapper.toEntity(user)
