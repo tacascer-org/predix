@@ -6,7 +6,7 @@ on:
       - created
   workflow_dispatch:
 
-permissions: read-all
+permissions: { }
 
 jobs:
   publish:
