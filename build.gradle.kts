@@ -47,7 +47,6 @@ val springMockkVersion = "4.0.2"
 val springDocOpenApiVersion = "2.5.0"
 
 dependencies {
-    kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -58,6 +57,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:$kotestSpringVersion")
@@ -106,7 +106,7 @@ sonar {
 }
 
 tasks.named<BootBuildImage>("bootBuildImage") {
-    imageName = "tacascer/predix"
+    tags = listOf("tacascer/$name:$version", "tacascer/$name:latest")
     if (System.getenv("DOCKER_HUB_TOKEN") != null) {
         publish = true
         docker {
