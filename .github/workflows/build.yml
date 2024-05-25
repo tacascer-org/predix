@@ -14,6 +14,8 @@ on:
   pull_request:
     types: [ opened, synchronize, reopened ]
 
+permissions: read-all
+
 jobs:
   gradle:
     uses: tacascer-org/actions-workflows/.github/workflows/gradle_build.yml@v0
@@ -43,3 +45,4 @@ jobs:
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE: "(CHANGELOG.md)|(gradlew.*)"

@@ -21,5 +21,5 @@ class PredictionValueType(
         return outcome == other.outcome
     }
 
-    final override fun hashCode(): Int = Objects.hash(outcome);
+    final override fun hashCode(): Int = Objects.hash(outcome)
 }

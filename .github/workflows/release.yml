@@ -1,9 +1,13 @@
 name: Publish to Docker Hub
+
 on:
   release:
     types:
       - created
   workflow_dispatch:
+
+permissions: read-all
+
 jobs:
   publish:
     runs-on: ubuntu-latest

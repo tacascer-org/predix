@@ -2,15 +2,16 @@ import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
     id("com.adarshr.test-logger") version "4.0.0"
+    id("com.diffplug.spotless") version "6.25.0"
     id("io.spring.dependency-management") version "1.1.5"
     id("org.jetbrains.kotlinx.kover") version "0.8.0"
     id("org.sonarqube") version "5.0.0.4638"
     id("org.springframework.boot") version "3.2.5"
     kotlin("jvm") version "1.9.24"
+    kotlin("kapt") version "1.9.24"
     kotlin("plugin.allopen") version "1.9.24"
     kotlin("plugin.jpa") version "1.9.24"
     kotlin("plugin.spring") version "1.9.24"
-    kotlin("kapt") version "1.9.24"
 }
 
 group = "io.github.tacascer"
@@ -69,7 +70,6 @@ dependencies {
     testImplementation("org.testcontainers:postgresql")
 }
 
-
 kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xjsr305=strict")
@@ -101,7 +101,7 @@ sonar {
         property("sonar.host.url", "https://sonarcloud.io")
         property(
             "sonar.coverage.jacoco.xmlReportPaths",
-            "${layout.buildDirectory.asFile.get()}/reports/kover/report.xml"
+            "${layout.buildDirectory.asFile.get()}/reports/kover/report.xml",
         )
     }
 }
@@ -116,6 +116,5 @@ tasks.named<BootBuildImage>("bootBuildImage") {
                 password = System.getenv("DOCKER_HUB_TOKEN")
             }
         }
-
     }
 }
