@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiffGenerationConfig">
+    <option name="snapshotDb" value="false" />
+    <option name="snapshotModelValue" value="Default" />
+    <option name="sourceModelValue" value="Default" />
+    <option name="targetDbValue" value="ba796d3c-3208-4380-aaa1-710f9dba63b4" />
+    <option name="updateChangeLogPath" value="src/main/resources/db/changelog/db.changelog-master.xml" />
+    <option name="updateDbConnectionName" value="ba796d3c-3208-4380-aaa1-710f9dba63b4" />
+  </component>
+</project>
