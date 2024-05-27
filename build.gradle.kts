@@ -5,7 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.5"
     id("org.jetbrains.kotlinx.kover") version "0.8.0"
     id("org.sonarqube") version "5.0.0.4638"
-    id("org.springframework.boot") version "3.2.5"
+    id("org.springframework.boot") version "3.3.0"
     kotlin("jvm") version "1.9.24"
     kotlin("kapt") version "1.9.24"
     kotlin("plugin.allopen") version "1.9.24"
