@@ -9,7 +9,7 @@ plugins {
     kotlin("jvm") version "1.9.24"
     kotlin("kapt") version "1.9.24"
     kotlin("plugin.allopen") version "2.0.0"
-    kotlin("plugin.jpa") version "1.9.24"
+    kotlin("plugin.jpa") version "2.0.0"
     kotlin("plugin.spring") version "1.9.24"
 }
 
