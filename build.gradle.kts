@@ -41,7 +41,7 @@ configurations {
 
 val mapstructVersion = "1.5.5.Final"
 val instancioVersion = "4.6.0"
-val kotestSpringVersion = "1.1.3"
+val kotestSpringVersion = "1.3.0"
 val kotestVersion = "5.9.0"
 val springMockkVersion = "4.0.2"
 val springDocOpenApiVersion = "2.5.0"
