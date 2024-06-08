@@ -1,9 +1,8 @@
-package io.github.tacascer.user.db
+package io.github.tacascer.user
 
 import io.github.tacascer.existingUserArb
 import io.github.tacascer.predictionArb
-import io.github.tacascer.user.DomainUserService
-import io.github.tacascer.user.User
+import io.github.tacascer.user.db.UserRepository
 import io.github.tacascer.userArb
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
