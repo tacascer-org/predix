@@ -44,7 +44,7 @@ val instancioVersion = "4.6.0"
 val kotestSpringVersion = "1.3.0"
 val kotestVersion = "5.9.1"
 val springMockkVersion = "4.0.2"
-val springDocOpenApiVersion = "2.5.0"
+val springDocOpenApiVersion = "2.6.0"
 
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
