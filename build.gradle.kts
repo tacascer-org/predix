@@ -6,7 +6,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.8.3"
     id("org.sonarqube") version "5.1.0.4882"
     id("org.springframework.boot") version "3.3.2"
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm") version "2.0.10"
     kotlin("kapt") version "2.0.0"
     kotlin("plugin.allopen") version "2.0.10"
     kotlin("plugin.jpa") version "2.0.10"
