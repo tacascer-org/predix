@@ -39,7 +39,7 @@ configurations {
     }
 }
 
-val mapstructVersion = "1.5.5.Final"
+val mapstructVersion = "1.6.0"
 val instancioVersion = "4.6.0"
 val kotestSpringVersion = "1.3.0"
 val kotestVersion = "5.9.1"
