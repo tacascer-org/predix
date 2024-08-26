@@ -26,6 +26,6 @@ jobs:
           DOCKER_HUB_TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
         run: ./gradlew bootBuildImage
       - name: Upload SBOM
-        uses: anchore/sbom-action@v0.17.1
+        uses: anchore/sbom-action@v0.17.2
         with:
           image: tacascer/predix
